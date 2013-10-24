@@ -1,0 +1,9 @@
+{
+  "modules" : { 
+    "cocktail":     {
+      "description": "Trouve quoi faire comme boisson",
+      "version"    : "1.5",
+      "addr_sarah_php"    : "[FIXME]"
+    }
+  }
+}

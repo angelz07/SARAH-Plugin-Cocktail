@@ -1,0 +1,9 @@
+﻿<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleCOCKTAIL" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+
+	<rule id="ruleCOCKTAIL" scope="public">
+		<tag>out.action=new Object(); </tag>
+		<item >Sarah</item>
+		
+		<item>active le mode Barman<tag>out.action._attributes.context = "lazycocktail.xml"</tag><tag>out.action._attributes.tts = "Mode Barman activé. Que voulez-vous ?"</tag></item>
+	</rule>  
+</grammar>

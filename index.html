@@ -1,0 +1,206 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#plugin-menu .plugin-nav a").click(function () {
+            jQuery("#plugin-menu .content > ul").hide();
+            jQuery("#plugin-menu .plugin-nav ul li").removeClass("active");
+            jQuery(this).parent().addClass("active");
+            jQuery("#" + jQuery(this).data("toggle")).show();
+            return false;
+        });
+    });
+</script>
+
+<p class="page-header">
+   <h2>Accueil</h2>
+    <h3>Descriptif</h3>
+    <p>
+        Voici le plugin cocktail pour sarah,
+        
+        il permet de :
+        <ul>
+            <li>
+                Gérer son "stock" de boisson via une page web avec une base MySQL (il faut évidemment un mini server php-mysl mais les sources sont fournie)
+            </li>
+            <li>
+                Demander à Sarah quel sont les boissons disponible (sur base de votre base MySQL)
+            </li>
+            <li>
+                Demander à Sarah d'aller chercher sur internet (<a href="http://www.1001cocktails.com/">merci 1001cocktails</a>) des recettes de cocktail avec les ingrédients demandé
+            </li>
+            <li>
+                Demander à Sarah d'afficher sur chrome la recette choisie
+            </li>
+        
+        </ul>
+    </p>
+   
+    <h3>Prérequis</h3>  
+    <p>
+        <ul>
+            <li>
+                Un serveur PHP MySQL fonctionnel
+            </li>
+            <li>
+                Une connexion internet pour la recherche de recettes
+            </li>
+            <li>
+                Chrome d'installer sur le pc de Sarah
+            </li>
+        </ul>
+    </p>
+</p>
+
+<div id="plugin-menu" class="row-fluid">
+    <!-- Navigation -->
+    <div class="span3 well plugin-nav">
+        <ul class="nav nav-list">
+            <li class="nav-header">Documentation</li>
+            <li class="active"><a href="" data-toggle="plugin-doc">Configuration</a></li>
+            <li class="nav-header">Commandes vocales</li>
+            <li><a href="#" data-toggle="plugin-examples">Utilisation</a></li>
+            <li><a href="#" data-toggle="plugin-errors">Todo</a></li>
+        </ul>
+    </div>
+    <!-- Content -->
+    <div class="span9 content">
+
+        <ul class="unstyled" id="plugin-doc">
+            <h2>Configuration</h2>
+    <ul><!-- debut ul general -->
+        <li>
+            Configuration PHP MYSQL : <br /><br />
+            <ol>
+                <li>
+                    Extraire le zip cocktails.zip sur votre serveur web
+                </li>
+                <li>
+                    Créé la base de donnée cocktail sur votre serveur MYSQL
+                    <pre>
+                        
+                        --
+                        -- Base de données: `cocktail`
+                        --
+                        CREATE DATABASE `cocktail` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+                        USE `cocktail`;
+                        
+                        -- --------------------------------------------------------
+                        
+                        --
+                        -- Structure de la table `liste_alcool`
+                        --
+                        
+                        CREATE TABLE IF NOT EXISTS `liste_alcool` (
+                          `id_alcool` int(11) NOT NULL AUTO_INCREMENT,
+                          `nom_alcool` text NOT NULL,
+                          `quantite_alcool` int(11) NOT NULL,
+                          PRIMARY KEY (`id_alcool`)
+                        ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+                        
+                        -- --------------------------------------------------------
+                        
+                        --
+                        -- Structure de la table `liste_soft`
+                        --
+                        
+                        CREATE TABLE IF NOT EXISTS `liste_soft` (
+                          `id_soft` int(11) NOT NULL AUTO_INCREMENT,
+                          `nom_soft` text NOT NULL,
+                          `quantite_soft` int(11) NOT NULL,
+                          PRIMARY KEY (`id_soft`)
+                        ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+                    </pre>
+                </li>
+                <li>
+                    Créé un utilisateur avec tout les droits sur la table cocktails
+                </li>
+                <li>
+                    Modifier les lignes suivante dans les fichiers  /scripts_php/fonction_php et /scripts_php/sarah.php :
+                    
+                    <pre>
+                        $user_mysql = 'USER_MYSQL';
+                        $pass_mysql = 'PASS_MYSQL';
+                        $db_mysql = 'BD_COCKTAILS';
+                        $host_mysql = 'ADDRESSE SERVEUR MYSQL';
+                    </pre>
+                </li>
+            </ol>
+        </li>
+        <li>
+            Configuration Sarah : <br /><br />
+            Dans l'interface web mettre dans la config du portlet l'addresse de la page sarah.php. <br />
+            Exemple : <pre> http://srv-web/cocktails/scripts_php/sarah.php </pre>
+            Remarques : il faudra peut etre modifier le paramètre ctxTimeout dans le fichier custom.ini si les requetes prennent trop de temps
+        </li>
+    </ul><!-- fin ul general -->
+        </ul>
+
+        <ul class="unstyled" id="plugin-examples" style="display: none;">
+        	<h2>Utilisation</h2>
+    <p>
+        <pre>Moi : "Sarah active le mode Barman"</pre>
+        <pre>Sarah : Mode Barman activé. Que voulez-vous ?</pre>
+        
+        On passe en mode Lazy et puis : 
+        
+        <pre>Moi : "Qu'as-tu en stock"</pre>
+        Sarah va regarder dans la base de donnée quel sont les boissons disponible 
+        <pre>Sarah : "il y a pour le moment de disponible les alcools suivant : gi
+n , rhum , vodka. Et pour les softs : coca , grenadine , jus d'orange</pre>
+        
+        Là Sarah modifie le fichier lazycocktail.xml et efface les précédentes boisson ajoute les nouvelles boissons. <br /><br />
+        
+        Et là on peut dire : 
+        <pre>moi : "je veux boire de la vodka"</pre>
+        Là Sarah va travailler un peu plus : 
+            <ol>
+                <li>
+                    Sarah prend en argument la boisson demandé, si c’est un alcool, elle recherche dans les softs 2 ingrédients aléatoirement
+                </li>
+                <li>
+                    Sarah fait deux recherche sur le site  <a href="http://www.1001cocktails.com/">1001cocktails</a>.<br>
+                    D’abord une recherche avec le nom de l'alcool demandé et le premier ingrédient soft trouvé et retourne 3 noms de cocktail avec leur ingrédients.  
+                </li><br />
+                
+                    Puis fait une deuxieme recherche avec le deuxième ingrédient soft trouvé et retourne aussi 3 résultat et leur ingrédients.<br /><br />
+               
+                <li>
+                    Puis ajoute dans le le fichier lazycocktail.xml les noms des cocktail avec l'adresse web comme variable
+                </li>
+                <li>
+                    Et Sarah nous énonce la liste des cocktails et de leurs ingrédients
+                    <pre>Sarah : "je peux vous proposer sur base de vodka et de coca les cock
+tails suivant : Black Shadow avec comme ingrédient : vodka noire ,jus d
+e citrons ,coca  , Ou encore : Tall Black Russian  avec comme ingrédie
+nt : vodka, liqueur de café , coca , Ou encore :  Mexican ice tea avec comme ingrédient : tequila , vodka , coca  , triple sec  , rhum blanc ,  ou alors je peux vous proposer sur base de vodka et de grenadine les cock
+tails suivant :  After sex avec comme ingrédient : vodka , crème de bananes , jus d'oranges , sirop de grenadine , sucre , Ou encore : Cervelle de Singe avec comme ingrédient : sirop de grenadine , crème de whisky  , vodka , Ou encore : Anti's avec comme ingrédient : vodka , limonade  , sirop de grenadine"</pre>
+                </li>
+            </ol>
+    Et enfin on peut demander à Sarah :  
+    <pre>Moi : affiche-moi Black Shadow</pre> 
+    Et sarah la page web de la recette sur chrome         
+    </p>
+        
+        </ul>
+
+        <ul class="unstyled" id="plugin-errors" style="display: none;">
+            <h2>TODO</h2>
+    <p>
+        <ul>
+            <li>
+                Afficher la recette sur un autre pc que celui de Sarah
+            </li>
+            <li>
+                "Transformer phonétiquement" les noms de cocktail anglais
+            </li>
+            <li>
+                Optimiser le code car là ce n’est pas super beau :-) mais des soucis avec toutes ces requêtes asynchrones
+            </li>
+            <li>
+                faire un bras robotique pour faire le cocktail :-) (mais ca c'est dans une autre vie :-)
+            </li>
+        </ul>
+    </p>
+        </ul>
+    </div>
+</div>
