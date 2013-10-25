@@ -4,17 +4,27 @@ exports.action = function (data, callback, config, SARAH) {
     var tableau_soft  = new Array();
     var tts_reponse;
 	// Retrieve config
- 
+    var  api_url;
     config = config.modules.cocktail;
-    if(config.addr_sarah_php == "[FIXME]"){
-		callback({'tts': "il manque la configuration de la page sarah.php"});
-		return;
-	}
+    
+	 if(config.mode_mysql == "[FIXME]"){
+        callback({'tts': "il manque la configuration du mode"});
+        return;
+    }
     switch (data.commande) {
         case 'liste_boisson':
-                var adresse_php = config.addr_sarah_php;
-                liste_alcool(callback,adresse_php);
-                
+				if(config.mode_mysql == "mysql"){
+					if(config.addr_sarah_php == "[FIXME]"){
+						callback({'tts': "il manque la configuration de la page sarah.php"});
+						return;
+					}
+					var adresse_php = config.addr_sarah_php;
+					liste_alcool_mysql(callback,adresse_php);
+				}
+				if(config.mode_mysql == "text"){
+					liste_alcool_text(callback);
+				}
+				
             break;
 
         case 'recherche_coctails':
@@ -464,7 +474,7 @@ function modification_lazyxml_cocktail(callback,tts_liste_cocktail,ligne_insert)
 /* Ajout dans le fichier XML des boisson  */
 /******************************************/
 
-function liste_alcool(callback,adresse_php){
+function liste_alcool_mysql(callback,adresse_php){
     var request = require("request");
     var url = adresse_php + '?sarah=list_alcool';
    // console.log(url)
@@ -611,3 +621,35 @@ function anglais_francais(string){
 
     return string;
 }
+
+
+/****************************************************/
+/* Ajout dans le fichier XML des boisson MODE TEXT  */
+/****************************************************/
+function liste_alcool_text(callback){
+	var fs = require("fs");
+	var contenu;
+
+	contenu = fs.readFileSync("plugins/cocktail/boisson.js", "UTF-8");
+	var regexp = new RegExp('\r\n', 'gm');
+	
+	contenu = contenu.replace(regexp, '');
+	boisson = JSON.parse(contenu);
+	
+	tableau_alcool = new Array();
+    for (var i =0;i<boisson.alcools.length;i++){
+        tableau_alcool.push(boisson.alcools[i])
+    }
+
+	tableau_soft = new Array();
+    for (var i =0;i<boisson.softs.length;i++){
+        tableau_soft.push(boisson.softs[i])
+    }
+
+	ajout_boisson_xml(tableau_alcool,tableau_soft,callback);
+	
+}
+
+/********************************************************/
+/* Fin Ajout dans le fichier XML des boisson MODE TEXT  */
+/********************************************************/

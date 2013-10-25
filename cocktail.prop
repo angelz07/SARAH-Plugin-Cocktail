@@ -2,8 +2,9 @@
   "modules" : { 
     "cocktail":     {
       "description": "Trouve quoi faire comme boisson",
-      "version"    : "1.5",
-      "addr_sarah_php"    : "[FIXME]"
+      "version"    : "1.6",
+      "addr_sarah_php"    : "[FIXME]",
+	  "mode_mysql"    : "[FIXME]"
     }
   }
 }
