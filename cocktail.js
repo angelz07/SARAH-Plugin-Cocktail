@@ -3,8 +3,7 @@ exports.action = function (data, callback, config, SARAH) {
     var tableau_alcool = new Array();
     var tableau_soft  = new Array();
     var tts_reponse;
-	// Retrieve config
-    var  api_url;
+
     config = config.modules.cocktail;
     
 	 if(config.mode_mysql == "[FIXME]"){

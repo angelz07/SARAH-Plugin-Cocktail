@@ -5,7 +5,7 @@
 		<one-of>
 			<!-- ******* Désactivation du mode Barman ************ -->
 			<item>
-					Merci ça sera tout, SARAH
+					Merci ça sera tout, Sarah
 					<tag>out.action._attributes.context = "default"</tag>
 					<tag>out.action._attributes.tts = "mais de rien!"</tag>
 			</item>
@@ -24,14 +24,15 @@
     <item repeat="0-1" weight="1.2">
       <one-of>
       	<!--¤  Liste alcools ¤-->
-<item>gin<tag>out.action.type_boisson="alcool";out.action.boisson="gin";</tag></item> 
-<item>rhum<tag>out.action.type_boisson="alcool";out.action.boisson="rhum";</tag></item> 
 <item>vodka<tag>out.action.type_boisson="alcool";out.action.boisson="vodka";</tag></item> 
+<item>rhum<tag>out.action.type_boisson="alcool";out.action.boisson="rhum";</tag></item> 
+<item>gin<tag>out.action.type_boisson="alcool";out.action.boisson="gin";</tag></item> 
+<item>pasoa<tag>out.action.type_boisson="alcool";out.action.boisson="pasoa";</tag></item> 
 <!--¤  Fin Liste alcools ¤-->
 <!--¤  Liste softs ¤-->
 <item>coca<tag>out.action.type_boisson="soft";out.action.boisson="coca";</tag></item> 
-<item>fanta<tag>out.action.type_boisson="soft";out.action.boisson="fanta";</tag></item> 
 <item>grenadine<tag>out.action.type_boisson="soft";out.action.boisson="grenadine";</tag></item> 
+<item>jus de citron<tag>out.action.type_boisson="soft";out.action.boisson="jus de citron";</tag></item> 
 <item>jus d'orange<tag>out.action.type_boisson="soft";out.action.boisson="jus d'orange";</tag></item> 
 <!--¤  Fin Liste softs ¤-->
       </one-of>
@@ -42,9 +43,9 @@
 <item>Black Shadow <tag>out.action.cocktail="Black Shadow ";out.action.adresse="http://www.1001cocktails.com/cocktails/2218/recette-cocktail-black-shadow.html";</tag></item> 
 <item>Tall Black Russian <tag>out.action.cocktail="Tall Black Russian ";out.action.adresse="http://www.1001cocktails.com/cocktails/4554/recette-cocktail-tall-black-russian.html";</tag></item> 
 <item>Mexican ice tea  <tag>out.action.cocktail="Mexican ice tea  ";out.action.adresse="http://www.1001cocktails.com/cocktails/3079/recette-cocktail-mexican-ice-tea-texas-tea.html";</tag></item> 
-<item>After sex <tag>out.action.cocktail="After sex ";out.action.adresse="http://www.1001cocktails.com/cocktails/3297/recette-cocktail-after-sex.html";</tag></item> 
-<item>Cervelle de Singe <tag>out.action.cocktail="Cervelle de Singe ";out.action.adresse="http://www.1001cocktails.com/cocktails/440/recette-cocktail-cervelle-de-singe.html";</tag></item> 
-<item>Anti's <tag>out.action.cocktail="Anti's ";out.action.adresse="http://www.1001cocktails.com/cocktails/2461/recette-cocktail-anti-s.html";</tag></item> 
+<item>Kamikaze <tag>out.action.cocktail="Kamikaze ";out.action.adresse="http://www.1001cocktails.com/cocktails/116/recette-cocktail-kamikaze.html";</tag></item> 
+<item>Kamikaze blue <tag>out.action.cocktail="Kamikaze blue ";out.action.adresse="http://www.1001cocktails.com/cocktails/4055/recette-cocktail-kamikaze-blue.html";</tag></item> 
+<item>Black Shadow <tag>out.action.cocktail="Black Shadow ";out.action.adresse="http://www.1001cocktails.com/cocktails/2218/recette-cocktail-black-shadow.html";</tag></item> 
 <!--¤  Fin Liste cocktail ¤-->
 
       </one-of>
