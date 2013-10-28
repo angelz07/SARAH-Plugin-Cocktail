@@ -13,6 +13,10 @@
 h4 {
 	color: #F00;
 }
+h5 {
+    font-size: 12px;
+    font-style: italic;
+}
 </style>
 
 
@@ -48,9 +52,6 @@ h4 {
             ou pas si mode texte</li>
             <li>
                 Une connexion internet pour la recherche de recettes
-            </li>
-            <li>
-                Chrome d'installer sur le pc de Sarah
             </li>
         </ul>
     </p>
@@ -143,7 +144,22 @@ h4 {
 
  </pre>
  <h4>SI MODE TEXTE le param addr_sarah_php n'est pas nécessaire</h4>
-            Remarques : il faudra peut etre modifier le paramètre ctxTimeout dans le fichier custom.ini si les requetes prennent trop de temps
+            Remarques : il faudra peut etre modifier le paramètre ctxTimeout dans le fichier custom.ini si les requetes prennent trop de temps<br />
+            <br />
+            <ol>
+                <li>
+                    Renseignez le navigateur que vous voulez utilisez pour afficher la recette avec le paramètre "bowser", vous devez spécifier : chrome ou firefox ou explorer.
+                </li>
+                <li>
+                    Renseignez si vous voulez afficher la recette en local ou sur un Windows distant avec le paramètre "remote".  Pour local mettre no et pour remote mettre yes
+                </li>
+                <li>
+                    Si vous utilisez l'affichage distant, il faut configurer l'adresse ip du pc distant avec le paramètre : ip_remote mais en plus,<br />
+                    dézipper le fichier remote_node.zip a la racine d'un des disque dur du pc distant sur lequel vous voulez afficher la recette.<br /> <h5>C’est en fait un mini node (merci jp car c'est en fait une copie light de Sarah mais très lite sur le port 8082 que vous pouvez modifier dans le fichier script/srv_lite.js)</h5>
+                     il faut évidemment l'exécuter (au démarrage du pc pour automatiser) en lançant Server_lite.cmd.<br /><br />
+                    Je n'ai pas encore trouvé comment faire autrement pour afficher une page web sur un Windows distant
+                </li>
+            </ol> 
         </li>
     </ul><!-- fin ul general -->
         </ul>
@@ -200,9 +216,6 @@ tails suivant :  After sex avec comme ingrédient : vodka , crème de bananes , 
             <h2>TODO</h2>
     <p>
         <ul>
-            <li>
-                Afficher la recette sur un autre pc que celui de Sarah
-            </li>
             <li>
                 "Transformer phonétiquement" les noms de cocktail anglais
             </li>

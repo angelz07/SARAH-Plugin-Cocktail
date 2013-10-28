@@ -5,11 +5,21 @@ exports.action = function (data, callback, config, SARAH) {
     var tts_reponse;
 
     config = config.modules.cocktail;
-    
-	 if(config.mode_mysql == "[FIXME]"){
-        callback({'tts': "il manque la configuration du mode"});
+   
+
+    if(config.bowser == "[FIXME]"){
+        callback({'tts': "il manque la configuration du navigateur"});
         return;
     }
+	if(config.remote == "[FIXME]"){
+        callback({'tts': "il manque la configuration du remote"});
+        return;
+    }
+    
+   
+    var bowser = config.bowser;
+    var remote = config.remote;
+
     switch (data.commande) {
         case 'liste_boisson':
 				if(config.mode_mysql == "mysql"){
@@ -34,11 +44,44 @@ exports.action = function (data, callback, config, SARAH) {
 
             break;
         case 'select_coctails':
-            var cocktail = data.cocktail
-            var adresse = data.adresse
-            
-            SARAH.remote({ 'run' : 'chrome.exe', 'runp' : adresse });﻿
 
+            var adresse = data.adresse
+
+            console.log('adresse = ' + adresse)
+
+            if(remote == 'no'){
+                console.log('remote = No')
+                if(bowser == 'chrome'){
+                    SARAH.remote({ 'run' : 'chrome.exe.exe', 'runp' : adresse });
+                }﻿
+                if(bowser == 'firefox'){
+                    SARAH.remote({ 'run' : 'firefox.exe', 'runp' : adresse });
+                }﻿
+                if(bowser == 'explorer'){
+                    SARAH.remote({ 'run' : 'iexplore.exe', 'runp' : adresse });
+                }﻿
+            }
+            if(remote == 'yes'){
+                console.log('remote = Yes')
+                if(config.ip_remote == "[FIXME]"){
+                    callback({'tts': "il manque la configuration du ip repote"});
+                    return;
+                }
+                 var ip_remote = config.ip_remote;
+                var request = require("request");
+                //192.168.1.97:8080/?browser=chrome&address=http://www.google.be
+                var url = 'http://'+ip_remote+':8082/?browser='+bowser+'&address='+adresse;
+                console.log(url)
+                request({ 'uri': url }, function(error, response, retour) {
+                if (error || response.statusCode != 200) {
+                    callback({'tts': "erreur"});
+                    console.log("erreur");
+                    return;
+                }
+                
+                    console.log('recette envoyée sur le node distant')
+                });
+            }
             break;
 
 //
